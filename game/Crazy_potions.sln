@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crazy_potions", "Crazy_potions\Crazy_potions.csproj", "{BFCAB24C-4489-4B8B-A335-A700CF354694}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFCAB24C-4489-4B8B-A335-A700CF354694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFCAB24C-4489-4B8B-A335-A700CF354694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFCAB24C-4489-4B8B-A335-A700CF354694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFCAB24C-4489-4B8B-A335-A700CF354694}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9A1C2AA-F072-417E-9187-953A73B5545C}
+	EndGlobalSection
+EndGlobal
