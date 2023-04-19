@@ -83,7 +83,7 @@ namespace game
 
     public class GameCycleView : Game, IGameplayView
     {
-        public GraphicsDeviceManager _graphics;
+        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
         public event EventHandler CycleFinished = delegate { };
@@ -117,6 +117,7 @@ namespace game
 
         protected override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             var keys = Keyboard.GetState().GetPressedKeys();
             if (keys.Length > 0)
             {
@@ -173,18 +174,18 @@ namespace game
                             break;
                         }
                 }
-            }
-            base.Update(gameTime);
+            }          
             CycleFinished.Invoke(this, new EventArgs());
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            base.Draw(gameTime);
+
             _spriteBatch.Begin();
             _spriteBatch.Draw(_playerImage, _playerPos, Color.White);
             _spriteBatch.End();
+            base.Draw(gameTime);
         }
     }
 
@@ -192,39 +193,23 @@ namespace game
     {
         public event EventHandler<GameplayEventArgs> Updated = delegate { };
 
-        private Vector2 _pos = new Vector2(300, 300);
+        private Vector2 _pos = new Vector2(0, 0);
 
         public void Update()
         {
-            _pos += new Vector2(1, 0);
             Updated.Invoke(this, new GameplayEventArgs { PlayerPos = _pos });
         }
 
         public void MovePlayer(IGameplayModel.Direction dir)
         {
-            switch (dir)
-            {
-                case IGameplayModel.Direction.forward:
-                    {
-                        _pos += new Vector2(0, -1);
-                        break;
-                    }
-                case IGameplayModel.Direction.backward:
-                    {
-                        _pos += new Vector2(0, 1);
-                        break;
-                    }
-                case IGameplayModel.Direction.right:
-                    {
-                        _pos += new Vector2(1, 0);
-                        break;
-                    }
-                case IGameplayModel.Direction.left:
-                    {
-                        _pos += new Vector2(-1, 0);
-                        break;
-                    }
-            }
+            if( dir == IGameplayModel.Direction.forward)
+                _pos += new Vector2(0, -1);
+            if (dir == IGameplayModel.Direction.backward)
+                _pos += new Vector2(0, 1);
+            if (dir == IGameplayModel.Direction.right)
+                _pos += new Vector2(1, 0);
+            if (dir == IGameplayModel.Direction.left)
+                _pos += new Vector2(-1, 0);
         }
     }
 }
