@@ -83,13 +83,15 @@ namespace game
 
     public class GameCycleView : Game, IGameplayView
     {
-        private GraphicsDeviceManager _graphics;
+        private static GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
         public event EventHandler CycleFinished = delegate { };
         public event EventHandler<ControlsEventArgs> PlayerMoved = delegate { };
 
         private Vector2 _playerPos = Vector2.Zero;
+        private Vector2 _classPos = Vector2.Zero;
+        private static Texture2D _classImage;
         private Texture2D _playerImage;
 
         public GameCycleView()
@@ -107,7 +109,8 @@ namespace game
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _playerImage = Content.Load<Texture2D>("Snape");
+            _classImage = Content.Load<Texture2D>("Класс");
+            _playerImage = Content.Load<Texture2D>("Игрок");
         }
 
         public void LoadGameCycleParameters(Vector2 pos)
@@ -118,6 +121,8 @@ namespace game
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            LimitArea(_playerPos, _playerImage);
+
             var keys = Keyboard.GetState().GetPressedKeys();
             if (keys.Length > 0)
             {
@@ -178,11 +183,32 @@ namespace game
             CycleFinished.Invoke(this, new EventArgs());
         }
 
+        private static void LimitArea(Vector2 pos, Texture2D texture)
+        {
+            if (pos.X > _graphics.PreferredBackBufferWidth - texture.Width / 2)
+            {
+                pos.X = _graphics.PreferredBackBufferWidth - texture.Width / 2;
+            }
+            else if (pos.X < texture.Width / 2)
+            {
+                pos.X = texture.Width / 2;
+            }
+
+            if (pos.Y > _graphics.PreferredBackBufferHeight - texture.Height / 2)
+            {
+                pos.Y = _graphics.PreferredBackBufferHeight - texture.Height / 2;
+            }
+            else if (pos.Y < texture.Height / 2)
+            {
+                pos.Y = texture.Height / 2;
+            }
+        }
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
+            _spriteBatch.Draw(_classImage, _classPos,Color.White);
             _spriteBatch.Draw(_playerImage, _playerPos, Color.White);
             _spriteBatch.End();
             base.Draw(gameTime);
