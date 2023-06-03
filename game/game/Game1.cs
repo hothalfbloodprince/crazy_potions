@@ -103,6 +103,8 @@ namespace game
 
         protected override void Initialize()
         {
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
             base.Initialize();
         }
 
